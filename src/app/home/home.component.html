@@ -1,4 +1,16 @@
 <app-header></app-header>
+<br />
+<input
+  type="text"
+  [value]="title()"
+  (keyup)="changeTitle($event)"
+  style="border: 1px solid"
+/>
+{{ title() }}
+
+<!-- <p>{{ title }}</p> -->
+
+<br />
+
 <router-outlet></router-outlet>
 <p>home works!</p>
-
