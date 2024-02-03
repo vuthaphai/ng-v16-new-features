@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'app-signals',
@@ -8,8 +8,16 @@ import { Component, signal } from '@angular/core';
   imports: [NgFor],
 })
 export class SignalsComponent {
-  actions = signal<string[]>([]);
-  counter = signal(0);
+  actions = signal<string[]>([]); //create Signals
+  counter = signal(0); //create Signals
+
+  //computed: to produce new value
+  doubleCounter = computed(() => this.counter() * 2);
+
+  constructor() {
+    //effect: to run code when signals value change
+    effect(() => console.log(this.counter()));
+  }
 
   increment() {
     //Update Signals
