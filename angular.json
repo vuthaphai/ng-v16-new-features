@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
-            "outputPath": "dist/ng-v16-new-features",
+            "outputPath": "dist/ng-v16-new-features/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -82,6 +82,61 @@
             "styles": ["src/styles.scss"],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/ng-v16-new-features/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "ng-v16-new-features:build:development",
+              "serverTarget": "ng-v16-new-features:server:development"
+            },
+            "production": {
+              "browserTarget": "ng-v16-new-features:build:production",
+              "serverTarget": "ng-v16-new-features:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ng-v16-new-features:build:production",
+              "serverTarget": "ng-v16-new-features:server:production"
+            },
+            "development": {
+              "browserTarget": "ng-v16-new-features:build:development",
+              "serverTarget": "ng-v16-new-features:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
